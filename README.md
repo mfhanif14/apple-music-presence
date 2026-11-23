@@ -2,15 +2,9 @@
 
 A tiny macOS menu bar app that shows what you're playing in **Apple Music** as a **Discord Rich Presence** — clean, with just the album cover and **no Apple Music badge** on top of it.
 
-```
-Listening to Apple Music
-┌────────┐  アンドロイドガール
-│ album  │  DECO*27
-│ cover  │  アンドロイドガール
-└────────┘  00:44 ━━━━────────── 03:31
-            [ Play on Apple Music ]
-            [ built with ♪ by stahlritter ]
-```
+<p align="center">
+  <img src="docs/presence.png" alt="Discord profile showing the Apple Music presence card" width="480">
+</p>
 
 ## Features
 
@@ -47,6 +41,10 @@ Listening to Apple Music
 ## Menu options
 
 Click the ♪ icon in the menu bar:
+
+<p align="center">
+  <img src="docs/menu.png" alt="Menu bar options" width="260">
+</p>
 
 | Option | What it does |
 |---|---|
