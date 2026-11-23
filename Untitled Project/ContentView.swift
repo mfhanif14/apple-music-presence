@@ -6,6 +6,7 @@ struct MenuContent: View {
     @AppStorage("presenceEnabled") private var enabled = true
     @AppStorage("statusDisplay") private var statusDisplay = StatusDisplay.track.rawValue
     @AppStorage("showButton") private var showButton = true
+    @AppStorage("showCredit") private var showCredit = true
 
     var body: some View {
         if let track = controller.nowPlaying {
@@ -20,6 +21,7 @@ struct MenuContent: View {
 
         Toggle("Show presence", isOn: $enabled)
         Toggle("Show Apple Music button", isOn: $showButton)
+        Toggle("Show credit button", isOn: $showCredit)
         Picker("Status shows", selection: $statusDisplay) {
             ForEach(StatusDisplay.allCases) { option in
                 Text(option.label).tag(option.rawValue)

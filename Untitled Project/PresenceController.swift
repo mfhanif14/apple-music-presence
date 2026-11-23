@@ -57,6 +57,7 @@ final class PresenceController: ObservableObject {
         let rawDisplay = defaults.object(forKey: "statusDisplay") as? Int ?? StatusDisplay.track.rawValue
         let display = StatusDisplay(rawValue: rawDisplay) ?? .track
         let showButton = defaults.object(forKey: "showButton") as? Bool ?? true
+        let showCredit = defaults.object(forKey: "showCredit") as? Bool ?? true
 
         let current = MusicReader.read()
         if current != nowPlaying { nowPlaying = current }
@@ -74,7 +75,7 @@ final class PresenceController: ObservableObject {
 
         // Only send when the track/setting changes or the user seeks (Discord rate-limits updates).
         let start = Date().timeIntervalSince1970 - track.position
-        let key = "\(track.id)|\(display.rawValue)|\(showButton)"
+        let key = "\(track.id)|\(display.rawValue)|\(showButton)|\(showCredit)"
         if key == lastKey, abs(start - lastStart) < 3 { return }
 
         let links = await artwork.links(artist: track.artist, title: track.title, album: track.album)
@@ -83,7 +84,8 @@ final class PresenceController: ObservableObject {
             start: start,
             links: links,
             display: display,
-            showButton: showButton
+            showButton: showButton,
+            showCredit: showCredit
         )
 
         if discord.setActivity(activity) {
@@ -114,7 +116,8 @@ final class PresenceController: ObservableObject {
         start: Double,
         links: TrackLinks,
         display: StatusDisplay,
-        showButton: Bool
+        showButton: Bool,
+        showCredit: Bool
     ) -> [String: Any] {
         var timestamps: [String: Any] = ["start": Int((start * 1000).rounded())]
         if track.duration > 0 {
@@ -137,9 +140,14 @@ final class PresenceController: ObservableObject {
         }
 
         // Buttons are only visible to other people, not on your own profile.
+        var buttons: [[String: String]] = []
         if showButton, let songURL = links.songURL {
-            activity["buttons"] = [["label": "Play on Apple Music", "url": songURL]]
+            buttons.append(["label": "Play on Apple Music", "url": songURL])
         }
+        if showCredit {
+            buttons.append(["label": "built with ♪ by stahlritter", "url": "https://github.com/mfhanif14/apple-music-presence"])
+        }
+        if !buttons.isEmpty { activity["buttons"] = buttons }
         return activity
     }
 
