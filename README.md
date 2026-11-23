@@ -26,6 +26,17 @@ A tiny macOS menu bar app that shows what you're playing in **Apple Music** as a
 - The Discord **desktop app** running (Rich Presence doesn't work from Discord in a browser)
 - The Apple **Music** app
 
+## Download
+
+1. Grab **Apple Music Presence.zip** from the [latest release](https://github.com/mfhanif14/apple-music-presence/releases/latest).
+2. Unzip it and move **Apple Music Presence.app** to your **Applications** folder.
+3. Open it. Because the app isn't notarized by Apple, macOS will block it the first time:
+   - Go to **System Settings → Privacy & Security**, scroll down and click **Open Anyway** next to "Apple Music Presence".
+   - Or in Terminal: `xattr -dr com.apple.quarantine "/Applications/Apple Music Presence.app"`
+4. Look for the ♪ icon in the menu bar, play something in Music, and click **Allow** when asked to control Music.
+
+> Tip: add it to **System Settings → General → Login Items** so it starts automatically.
+
 ## Build & run
 
 1. Clone the repo and open `Untitled Project.xcodeproj` in Xcode.
